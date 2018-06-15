@@ -1,0 +1,71 @@
+---
+- hosts: localhost
+  remote_user: root
+  become: no
+  vars:
+    variable_to_be_replaced: 'SAMEERA'
+    list: [ 'dancing','singing' ]
+    epic: true
+  tasks:
+    - name: create a file
+      file:
+        path: /home/ansible/file1.txt
+        state: touch
+      when: true == true
+
+
+    - name: create a directory
+      file:
+        path: /home/ansible/smaran
+        state: directory
+
+    - name: create a file
+      file:
+        path: /home/ansible/smaran/file2.txt
+        state: touch
+
+   # - name: use template and create a file
+   #   template:
+   #     src: krishna-template.txt.j2
+   #     dest: /home/ansible/smaran/krishna1.txt
+
+   # - name: use template and create a file
+   #   template:
+   #     src: krishna-template.txt.j2
+   #     dest: /home/ansible/smaran/krishna2.txt
+
+   # - name: use template2 and create a file
+   #   template:
+   #     src: krishna1-template.txt.j2
+   #     dest: /home/ansible/smaran/temp1.txt
+
+   # - name: create a file using another template file
+   #   template:
+   #     src: krishna3-template.txt.j2
+   #     dest: /home/ansible/smaran/temp2.txt
+
+   # - shell: echo "this is epic!"
+   #   when: epic
+
+   #  - command: echo {{ item }}
+   #  loop: [ 0 , 2 , 4 , 8 , 10 ]
+   #     when: item > 2
+
+   # - name: create multiple user
+   #   user:
+   #     name: "{{ item }}"
+   #     state: present
+   #     group: "wheel"
+   #   with_items:
+   #     - user1
+   #     - user2
+
+   # - name: create a group
+   #   group:
+   #     name: wheel
+   #     state: started
+ 
+    - name: add a line in file
+      lineinfile:
+        path: /home/ansible/samplefile.txt
+        line: three

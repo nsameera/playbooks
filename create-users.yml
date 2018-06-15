@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  vars:
+    family: ["raja","sameera","smaran","krishna"]
+
+  tasks:
+    - name: create group
+      group:
+        name: Ourfamily
+        state: present
+
+    - name: create more users
+      user:
+        name: "{{ item }}"
+        group: Ourfamily
+      with_items:
+        - "{{ family }}"
+        - ramamurthy
+        - ratnamala
+
+
+   
