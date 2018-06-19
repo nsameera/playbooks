@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  tasks:
+    - name: run the command module
+      command: cat /etc/motd
+      register: mymotd
+
+    - debug:
+      var: mymotd
