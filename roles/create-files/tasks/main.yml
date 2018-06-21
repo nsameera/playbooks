@@ -1,0 +1,17 @@
+---
+- name: create a file
+  file:
+    path: /home/playbooks/file1.txt
+    state: touch
+  when: true == true
+
+
+- name: create a directory
+  file:
+    path: /home/playbooks/smaran
+    state: directory
+
+- name: create a file
+  file:
+    path: /home/playbooks/smaran/file2.txt
+    state: touch

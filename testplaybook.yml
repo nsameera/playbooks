@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  remote_user: root
+  become: no
+  vars:
+    variable_to_be_replaced: 'SAMEERA'
+    list: [ 'dancing','singing' ]
+    epic: true
+    sitename: 'sameera.com'
+  roles:
+    - role: install-apache
+    - role: config-apache
+    - role: generate-ssl
+

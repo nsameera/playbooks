@@ -1,0 +1,17 @@
+---
+- name: install package
+  yum:
+    name: httpd
+    state: latest
+
+- name: start a service
+  service:
+    name: httpd
+    state: started
+
+ 
+
+   
+   
+         
+    
