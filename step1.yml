@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars:
-    sitename: 'sameera' 
+    sitename: 'sameera.com' 
   tasks:
     - name: install package
       yum:

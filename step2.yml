@@ -1,25 +1,29 @@
 ---
-- hosts: localhosts
+- hosts: localhost
   tasks:
+
     - name: Ensure directory exists for local self-signed TLS certs.
       file:
-        path: /etc/hosts/{{ server_hostname }}
+        path: /home/{{ item }}
         state: directory
+      with_items:
+       - ssl
+       - ssl/{{ server_hostname }}
 
     - name: Generate an OpenSSL private key.
       openssl_privatekey:
-        path: /etc/hosts/{{ server_hostname }}/privkey.pem
+        path: /home/ssl/{{ server_hostname }}/privkey.pem
 
     - name: Generate an OpenSSL CSR.
       openssl_csr:
-        path: /etc/ssl/private/{{ server_hostname }}.csr
-        privatekey_path: /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem
+        path: /home/ssl/{{ server_hostname }}.csr
+        privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
         common_name: "{{ server_hostname }}"
 
     - name: Generate a Self Signed OpenSSL certificate.
       openssl_certificate:
-        path: /etc/letsencrypt/live/{{ server_hostname }}/fullchain.pem        
-        privatekey_path: /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem
-        csr_path: /etc/ssl/private/{{ server_hostname }}.csr
+        path: /home/ssl/{{ server_hostname }}/fullchain.pem        
+        privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
+        csr_path: /home/ssl/{{ server_hostname }}.csr
         provider: selfsigned
 
