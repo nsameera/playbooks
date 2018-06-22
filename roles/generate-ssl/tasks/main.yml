@@ -2,7 +2,7 @@
 - name: Ensure directory exists for local self-signed TLS certs.
   file:
     path: /home/{{ item }}
-    state: director
+    state: directory
   with_items:
     - ssl
     - ssl/{{ server_hostname }}
