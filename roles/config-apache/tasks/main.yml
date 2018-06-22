@@ -10,4 +10,4 @@
     dest: /var/www/html
 
 - name: restart apache server
-  command: /etc/httpd/bin/apachectl -k restart
+  command: /usr/sbin/apachectl -k restart
