@@ -2,9 +2,12 @@
 - name: template file
   template:
     src: httpd.conf.j2
-    dest: /etc/httpd/conf/httpd.conf
+    dest: /etc/httpd/conf.d/{{ server_hostname }}.conf
 
 - name: template file2 
   template:
     src: index.html.j2
     dest: /var/www/html
+
+- name: restart apache server
+  command: /etc/httpd/bin/apachectl -k restart

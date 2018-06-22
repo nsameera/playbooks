@@ -5,10 +5,10 @@
   vars:
     variable_to_be_replaced: 'SAMEERA'
     list: [ 'dancing','singing' ]
-    epic: true
+    server_hostname: 'sameera'
     sitename: 'sameera.com'
   roles:
+    - role: generate-ssl
     - role: install-apache
     - role: config-apache
-    - role: generate-ssl
 

@@ -5,13 +5,4 @@
     state: latest
 
 - name: start a service
-  service:
-    name: httpd
-    state: started
-
- 
-
-   
-   
-         
-    
+  command: /etc/httpd/bin/apachectl -k restart
