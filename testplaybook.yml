@@ -6,7 +6,7 @@
     variable_to_be_replaced: 'SAMEERA'
     list: [ 'dancing','singing' ]
     server_hostname: 'sameera'
-    sitename: 'sameera.com'
+    sitename: 'sameera'
   roles:
     - role: generate-ssl
     - role: install-apache
