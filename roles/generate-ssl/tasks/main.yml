@@ -1,29 +1,26 @@
 ---
-- hosts: localhost
-  tasks:
+- name: Ensure directory exists for local self-signed TLS certs.
+  file:
+    path: /home/{{ item }}
+    state: director
+  with_items:
+    - ssl
+    - ssl/{{ server_hostname }}
+ 
+- name: Generate an OpenSSL private key.
+  openssl_privatekey:
+    path: /home/ssl/{{ server_hostname }}/privkey.pem
 
-    - name: Ensure directory exists for local self-signed TLS certs.
-      file:
-        path: /home/{{ item }}
-        state: directory
-      with_items:
-       - ssl
-       - ssl/{{ server_hostname }}
+- name: Generate an OpenSSL CSR.
+  openssl_csr:
+    path: /home/ssl/{{ server_hostname }}.csr
+    privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
+    common_name: "{{ server_hostname }}"
 
-    - name: Generate an OpenSSL private key.
-      openssl_privatekey:
-        path: /home/ssl/{{ server_hostname }}/privkey.pem
-
-    - name: Generate an OpenSSL CSR.
-      openssl_csr:
-        path: /home/ssl/{{ server_hostname }}.csr
-        privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
-        common_name: "{{ server_hostname }}"
-
-    - name: Generate a Self Signed OpenSSL certificate.
-      openssl_certificate:
-        path: /home/ssl/{{ server_hostname }}/fullchain.pem        
-        privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
-        csr_path: /home/ssl/{{ server_hostname }}.csr
-        provider: selfsigned
+- name: Generate a Self Signed OpenSSL certificate.
+  openssl_certificate:
+    path: /home/ssl/{{ server_hostname }}/fullchain.pem        
+    privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
+    csr_path: /home/ssl/{{ server_hostname }}.csr
+    provider: selfsigned
 

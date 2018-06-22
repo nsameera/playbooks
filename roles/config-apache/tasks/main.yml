@@ -1,10 +1,10 @@
- ---
- - name: template file
-   template
-     src: httpd.conf.j2
-     dest: /etc/httpd/conf/httpd.conf
+---
+- name: template file
+  template:
+    src: httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
 
- - name: template file2
-   template
-     src: index.html.j2
-     dest: /var/www/html
+- name: template file2 
+  template:
+    src: index.html.j2
+    dest: /var/www/html
