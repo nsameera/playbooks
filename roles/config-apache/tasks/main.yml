@@ -1,8 +1,8 @@
 ---
 - name: template file
   template:
-    src: httpd.conf.j2
-    dest: /etc/httpd/conf.d/{{ server_hostname }}.conf
+    src: httpd-vs.conf.j2
+    dest: /etc/httpd/conf.d/{{ sitename }}.conf
 
 - name: template file2 
   template:

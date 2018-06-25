@@ -1,26 +1,23 @@
 ---
 - name: Ensure directory exists for local self-signed TLS certs.
   file:
-    path: /home/{{ item }}
+    path: "{{ ssl_folder_location }}"
     state: directory
-  with_items:
-    - ssl
-    - ssl/{{ server_hostname }}
  
 - name: Generate an OpenSSL private key.
   openssl_privatekey:
-    path: /home/ssl/{{ server_hostname }}/privkey.pem
+    path: "{{ ssl_folder_location }}/{{ sitename }}-privkey.pem"
 
 - name: Generate an OpenSSL CSR.
   openssl_csr:
-    path: /home/ssl/{{ server_hostname }}.csr
-    privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
-    common_name: "{{ server_hostname }}"
+    path: "{{ ssl_folder_location }}/{{ sitename }}.csr"
+    privatekey_path: "{{ ssl_folder_location }}/{{ sitename }}-privkey.pem"
+    common_name: "{{ sitename }}.com"
 
 - name: Generate a Self Signed OpenSSL certificate.
   openssl_certificate:
-    path: /home/ssl/{{ server_hostname }}/fullchain.pem        
-    privatekey_path: /home/ssl/{{ server_hostname }}/privkey.pem
-    csr_path: /home/ssl/{{ server_hostname }}.csr
+    path: "{{ ssl_folder_location }}/{{ sitename }}-fullchain.pem"        
+    privatekey_path: "{{ ssl_folder_location }}/{{ sitename }}-privkey.pem"
+    csr_path: "{{ ssl_folder_location }}/{{ sitename }}.csr"
     provider: selfsigned
 

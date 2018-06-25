@@ -3,12 +3,11 @@
   remote_user: root
   become: no
   vars:
-    variable_to_be_replaced: 'SAMEERA'
-    list: [ 'dancing','singing' ]
-    server_hostname: 'sameera'
-    sitename: 'sameera'
+    sitename: "sameera"
+    apache_home_location: "/etc/httpd"
+    ssl_folder_location: "{{ apache_home_location }}/ssl"
   roles:
     - role: generate-ssl
     - role: install-apache
-    - role: config-apache
+#    - role: config-apache
 
