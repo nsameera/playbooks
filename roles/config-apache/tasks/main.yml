@@ -7,7 +7,7 @@
 - name: template file2 
   template:
     src: index.html.j2
-    dest: /var/www/html
+    dest: /var/www/{{ sitename }}/index.html
 
 - name: restart apache server
   command: /usr/sbin/apachectl -k restart

@@ -9,9 +9,9 @@ TransferLog "/var/log/httpd/{{ sitename }}-ssl_access_log"
 SSLEngine on
 SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 ## Edit with new generated SSL certificate and key and change path to /etc/apache2/ssl/
-SSLCertificateFile /etc/apache2/ssl/gentoo.lan.crt
-SSLCertificateKeyFile /etc/apache2/ssl/gentoo.lan.key
-<Directory "/var/www/gentoo.lan">
+SSLCertificateFile "{{ ssl_folder_location }}/{{ sitename }}-privkey.pem"
+SSLCertificateKeyFile "{{ ssl_folder_location }}/{{ sitename }}-privkey.pem"
+<Directory "/var/www/{{ sitename }}/index.html ">
 Options Indexes FollowSymLinks ExecCGI MultiViews Includes
 AllowOverride All
 Order allow,deny
@@ -20,7 +20,7 @@ Allow from all
 <FilesMatch "\.(cgi|shtml|phtml|php)$">
 SSLOptions +StdEnvVars
 </FilesMatch>
-<Directory "/var/www/gentoo.lan ">
+<Directory "/var/www/{{ sitename }}/index.html ">
 SSLOptions +StdEnvVars
 </Directory>
 <IfModule setenvif_module>
