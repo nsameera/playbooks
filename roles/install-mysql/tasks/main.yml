@@ -1,0 +1,20 @@
+---
+- name: copy the mysql-community-server.repo file to /etc/yum.repos.d
+  copy:
+    src: mysql-community-source.repo
+    dest: /etc/yum.repos.d/mysql-community-source.repo
+
+- name: copy the mysql-community.repo file to /etc/yum.repos.d
+  copy:
+    src: mysql-community.repo
+    dest: /etc/yum.repos.d/mysql-community.repo
+ 
+- name: install myssql 
+  yum:
+    name: mysql-community-server
+    state: latest
+
+- name: start the service
+  service:
+    name: mysqld
+    state: started
