@@ -7,7 +7,7 @@
     apache_home_location: "/etc/httpd"
     ssl_folder_location: "{{ apache_home_location }}/ssl"
   roles:
-    - role: generate-ssl
-    - role: install-apache
+#    - role: generate-ssl
+#    - role: install-apache
 #    - role: config-apache
-
+     - role: jboss-standalone
