@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  remote_user: root
+  become: no
+  vars:
+    sitename: "sameera"
+    apache_home_location: "/etc/httpd"
+    ssl_folder_location: "{{ apache_home_location }}/ssl"
+  roles:
+     - role: httpd

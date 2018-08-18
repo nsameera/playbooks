@@ -1,0 +1,248 @@
+AWS SERVICES
+ Region- physical location which consists of two or more availability zones(az)
+Availability Zone- data centers
+Edge Locations-endpoints for was used for caching content, this consists of cloud front and amazon content delivery network.
+
+1.we have two availability zones per region
+
+                             CONSOLE
+    SERVICES     1.COMPUTE
+           A.elastic compute cloud:virtual machines in    aws platform
+           B.EC2 container service-docker containers
+           C.elastic beanstalk- upload code for developers
+           D.lambda-is a code we apply to cloud.
+           E.lightsail- virtual private service
+Underlying  operating sys
+           F.batch- for batch computing in cloud.
+  2.STORAGE
+A.s3 (simple storage service)-upload files which are in the cloud into 
+buckets
+B.EFS-elastic file system
+C.glacier-data archiver
+D.snowball-getting large amount of data into aws data center 
+E.storage getaway-virtual machines installed indoor data center
+   3.DATABASE
+A.RDS-relational dabs
+B.dynamodb-non relational database
+C.elasticache-caching service
+D.Red shift-datawarehousing
+    4.MIGRATION A.migration hub-tracking service
+B.application discovery service-tracking dependencies on service
+
+IAM-identity access management
+1.centralised control of aws account
+2.shared access to aws act
+3.granular permissions
+4.identity federation
+5.multifactor authentication
+6.provide temporary access for users
+7.allows to set up own password rotation
+8.integrates with many diff was services
+9.supports pci dss compliance
+
+SSS
+Allows to store files only
+Unlimited storage
+Files are stored in buckets(buckets are like folders)
+Each bucket has to have a  unique name and generates dns
+Url-https://s3-region name .amazonaws.com/bucketname
+When a file is uploaded to s3 ,a http 200 code is received if the upload is successful
+When a new file is uploaded in s3 it will be read first then write consistency for puts 
+When updating a current file it will take few mill sec to overwrite the puts and delete
+
+S3 is object based
+Key-name of object
+Value-data
+Version id
+Metadata
+Subresources
+a.access control lists(individual permissions on files)
+b.torrent
+
+S3-storsge tiers
+S3 standard
+S3-IA(infrequently accessed)
+S3 one zone IA(only stored in one avaiibility zone)
+glacier(only for archival) standard retrieval time 3-5 hrs
+
+Charges
+Charged for storage, requests, storage management pricing, data transfer pricing, transfer acceleration(transfer over long distance)
+
+Versioning
+Stores all versions of the object(files)(including all writes and even if you delete an object)
+Great backup tool
+Once versioning is enabled you cannot disable it but can suspend
+Integrates with lifecycle rules
+Versioning’s MFA delete capability, which uses multi factor authentication, can be used to provide an additional layer of security.
+
+S3-cross region replication
+Versioning must be enabled on both the source and destination buckets
+Regions must be unique
+Files in existing bucket are not replicated automatically, after enabling the cross region replication whatever the files are created will be replicated
+we cannot replicate on multiple buckets when we are using crr
+Delete markers are replicated
+but If we delete the delete marker in the source bucket it won’t be deleted automatically in the destination bucket we have to do it manually in destination bucket.
+To copy the buckets which are already there before enabling crr    to the destination we have to do it by aws command line interface
+
+
+S3-lifecycle management(having our rules for the buckets)
+Can be used on buckets with or without version control
+Can be applied to current versions/previous versions
+Actions are :
+1.transtition to s3-IA (after 30 days of creation)
+2.archive to glacier storage(30 days after s3-IA)
+Permanently delete
+
+
+Aws cloud front CDN
+CDN-content delivery network
+It is a system of distributed servers (network) that deliver webpages or other content to a user based on geographic locations of the user.
+Edge location-this is the location where content will be cached, this is separate to an aws region
+There are currently 50 edge locations in aws
+Origin-this is the origin of all the files that the can will distribute, this can be s3 bucket/ec2 instance/elastic load balancer/route 53.
+Distribution-this is the name given to can which consists of collection of edge locations
+Two types of distribution
+a.web distri-for websites
+b.RTMP-for media streaming
+Edge locations are not just read only, you can write to them too(put an object to them).
+Objects are cached for the file of ttl(time to live)
+You can clear cached objects but will be charged.
+
+S3-security and encryption
+Security
+By default all the buckets are private
+Access control
+a.bucket policies
+B.access control lists
+S3 buckets can be configured to create access logs
+Encryptions
+a. In transit
+Ssl/tls
+b.At rest
+Server side encryptions
+ a.s3 managed keys
+ b.aws key management service, managed keys
+ c.server side encryption with customer provided keys.
+c.client side encryption
+
+Storage Gateway
+This service enables you to securely store data to the aws cloud for scalable and cost effective storage.
+Virtual machine(storage gateway) image that you install on a host in datacenter, once installed your gateway and associated it with your AWS account through the activation process, we can use the aws management console to create gateway option that is right for us.
+
+4 types of gateways
+A.file gateway(NFS) stored on s3
+B.volumes gateways(iscsi)-we can store operating sys, sql servers, databases  kind of virtual hard disks are stored
+    Stored volumes—entire dataset is stored on s3 and is asynchronously backed upto s3.
+    Cached volumes-entire dataset is stored on s3  and frequently used data is stored here
+c.tape gateway(vtl)-backup and archival 
+
+Snowball-transfer large amounts into and out of aws
+Snowball-import t s3 and export from s3.
+Snowball edge
+Snowmobile-extremely large amount of data
+
+
+Static website using s3
+Under services s3 create bucket and click into the created bucket properties and click the static website hosting and  select use this bucket to host a website  and give the 2 file names as index.html and error.html and now create those 2 files
+open documents and create index.html and error.html and upload these files in s3 and 
+Now go to static website in s3 and click the link
+
+
+Launch ec2 instance
+go to Services-compute-ec2 
+Click launch instance
+Select amazon linux (freee tier)
+Select next:configure instance details
+In configuration details page 
+Subnet-it is available to each availability zone and select the protect against accidental termination
+Next to storage page and select volume(hard disk) type as magnetic and click 
+Next: add tags
+In tags page we can add detailed descriptions like name of the instance, which dept,team details etc and click configure security groups
+Security group is a virtual ssh, we can give security group name and description
+We can select type(ssh is default, http or https )
+Source -in this if we specify our own IP address then the server will run only on that IP address or leave it custom(that means any ip address can access)
+Then
+Review and launch 
+They will be window to select a key pair for security so create a newkeypair and download keypair(it will be download into our system location) and then hit launch instances
+In the launch instance page in the description tab we can see the public ip address we can ssh this using linux console to connect to the Ec2instance
+
+In the linux console 
+1.Make an SSH dir and mv the private key (.pem.txt)file into SSH
+2.Change the permission to read only for root on the file(chmod 400 myec2keypair.pem.txt)
+3.Establish ssh connection using ec2 public IP address to private key of the ec2(ssh ec2-user@18.191.207.222 -i myec2keypair.pem.txt)
+Hit yes and it will update and install all the required packages
+4.Yum install httpd(apache)
+In apache all the files are stored in /var/www/html so
+5.Cd /var/www/html and create index.html
+6.vi index.html
+Hello cloud gurus!
+Start the apache server
+7.Service httpd start
+Now open the browser and paste the public key in the browser 
+Hello cloud gurus! Will be displayed.
+
+Security Group lab
+All inbound traffic is blocked by default
+All outbound traffic is allowed
+Changes to security groups take effect immediately
+You can have any number of ec2 instances with security groups
+You can have multiple security groups attached with ec2 instances
+ Security groups are stateful that is if you create an inbound rule allowing traffic in, that traffic is automatically allowed back out again.
+You cannot block specific IP addresses using security groups, instead use Network Access Control lists.
+You can specify allow rules, but not deny rules.
+
+Upgrading Ebs volume 
+In the process of creating instances, in storage section add different volume types
+Root type(general purpose ssd)
+Eb2  type(magnetic)
+Eb2  type(throughput optimized)
+Eb2  type(cold HDD)
+ And when you check in the volumes(dashboard icon)all the different volumes we created have the same availability zone.
+In order to change the availability zone, take the snapshot and do the changes in the snapshots
+Copy it to another region.
+
+Create an AMI(amazon machine image)
+To create a snapshot for amazon abs volumes that serve as root devices, we should stop the instance before taking the snapshot.
+Snapshots of encrypted volumes are encrypted automatically.
+Volumes restored from encrypted snapshots are encrypted automatically.
+We can share snapshots but only if they are unencrypted because the encrypted key is tied to aws account.
+These snapshots can be shared with other aws accounts or made public.
+
+AMI types
+EBS vs INSTANCE STORE
+Instance store volumes are sometimes called Ephemeral storage.
+Instance store volumes cannot be stopped.if the underlying host fails we will lose our data.
+EBS backed instances can be stopped and we will not lose the data if it is stopped.
+We can reboot both and will not loose the data
+By default both Root volumes will be deleted on termination, but with EBS volumes we can tell AWS to keep the root device volume.
+
+Elastic load balancers
+Application LB network LB
+Classic LB-it has x-forwarded-for header from that we will know the public IP address.
+504 error means that the gateway has timed out means that the application is not responding within the idle timeout period.
+
+Load Runner lab
+In aws console start the instance and then go to ansible command line make sure we have apache server is up and running(service httpd status/service httpd start/chkconfig httpd on)
+And create another file(healthcheck.html) in /var/www/html 
+In aws console in ec2 create load balancer(classic one)
+Follow the steps, in configure health check
+enter the Advanced health check values for each field(2,5,2,3)
+We will get a dns name for our load balancer 
+We always use dns name for the load balancer, we will never be given ip addresses 
+While creating the load balancer in configure routing we will give the filename(the file which we want to be on lb and it is created  in /var/www/html ) in path field and in protocol field we enter HTTP
+In Register target we select the instances on which lb has to run
+
+Cloud watch is for  watching aws environment (cpu monitoring/utilization )and creating logs to
+Know the performance.
+With cloud watch we can Crete dashboards to see what is happening with aws envirinment
+And alarms-it allows you to set alarms that notify when particular thresholds are hit
+Events—it helps you to respond to state changes in aws resources
+Logs-logs help you to aggregate, monitor and store logs
+
+
+ 
+ 
+ 
+
+           
+

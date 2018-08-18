@@ -1,0 +1,8 @@
+Installing MySQL on linux
+Download the repo files(on host server) and save them in some(example tmp file)file.
+Move those repo files to roles/install-mysql/files(create this dir)
+And in install-mysql/tasks/main.yml 
+1.copy those repo files to /etc/yum.repo.d/(some file).repo(for the remote server)
+2.install mysql-community-server
+3.start the service (mysql)
+

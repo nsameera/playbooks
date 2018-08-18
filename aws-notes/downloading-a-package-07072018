@@ -1,0 +1,27 @@
+Downloading a package 
+1.Wget (paste the link of the downloading file)
+2.Locate is used to find the locatoin of the package 
+I3.nfo-to get the information of the pkg
+4.yum info pkgname
+5.To see what is there in the downloaded pkg
+rpm -qlp(querylistpkg) pkgname
+6.To see what pkgs are installed
+rpm -ql pkgnmae
+7.To see from which pkg the file comes from
+rpm -qf filepath
+8.to see pkg dependencies
+yum deplist pkgname
+9.to installl a repository using rpm
+rpm -I name.rpm
+10.sudo yum update -x nano(its updates every pkg available except nano)
+11.to download a pkg from source get the link from the website using wget and untarnished the file using tar -xf filename and change into that directory and run the config file
+12.apt search pkgname
+13.apt -cache search(search the repo for the pkg)
+14.apt-get download nmap(pkg name)(it will download from the web to the working directory)
+15.information about the local pkg 
+dpkg —info pkgname
+And to install a previously downloaded pkg using dpkg
+dpkg -I pkgnmae
+16.apt install pkgname
+17. To see installed pkgs
+Apt list —installed

@@ -1,0 +1,27 @@
+installing a websever
+Apache-install with yum
+Server root: /etc/httpd
+Conf path: /etc/httpd/conf/httpd.conf
+Extra conf files: /etc/httpd/conf.d/.*conf
+
+Ssl certs
+a.Private key
+   Public key
+   Csr
+   /etc/httpd/ssl/ssl_folder_location
+ 
+b.Roles
+Generate-ssl: create the directory(/etc/httpd/ssl/ssl_folder_location)
+Create modules for private key,publickey,csr
+Using crypto modules in ansible.
+Config-apache
+Calling a template file (httpd-vs.conf.j2)
+Dest: /etc/httpd/conf.d/somename.conf
+
+Httpd-vs.conf.j2 file has copied configuration file with all the attributes(server/hostname/ipaddress…) replaced
+
+Configuration file should have the original config file with extra .conf files.
+
+
+
+ 
